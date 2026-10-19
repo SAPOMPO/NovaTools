@@ -1,0 +1,116 @@
+{
+  "appName": "NovaTools",
+  "version": "1.0.0",
+  "jsonFormatter": {
+    "defaultIndent": 2,
+    "presets": [
+      {
+        "name": "Usuario Ejemplo",
+        "content": "{\"id\": 101, \"nombre\": \"Elena Gomez\", \"activo\": true, \"roles\": [\"admin\", \"editor\"], \"meta\": {\"visitas\": 4500, \"pais\": \"ES\"}}"
+      },
+      {
+        "name": "Configuracion API",
+        "content": "{\"servidor\": \"api.omnitoool.io\", \"puerto\": 443, \"ssl\": true, \"timeout\": 30, \"endpoints\": {\"auth\": \"/v1/auth\", \"data\": \"/v1/data\"}}"
+      }
+    ]
+  },
+  "diffChecker": {
+    "defaultOriginal": "function calcularSuma(a, b) {\n    return a + b;\n}",
+    "defaultModified": "function calcularSumaTotal(a, b, c) {\n    return a + b + (c || 0);\n}"
+  },
+  "contrastChecker": {
+    "defaultFg": "#ffffff",
+    "defaultBg": "#0f172a"
+  },
+  "unitConverter": {
+    "categories": {
+      "longitud": {
+        "name": "Longitud",
+        "base": "metro",
+        "units": {
+          "metro": 1,
+          "kilometro": 1000,
+          "centimetro": 0.01,
+          "milimetro": 0.001,
+          "pulgada": 0.0254,
+          "pie": 0.3048,
+          "milla": 1609.344
+        }
+      },
+      "masa": {
+        "name": "Masa",
+        "base": "gramo",
+        "units": {
+          "gramo": 1,
+          "kilogramo": 1000,
+          "miligramo": 0.001,
+          "libra": 453.59237,
+          "onza": 28.3495231
+        }
+      },
+      "tiempo": {
+        "name": "Tiempo",
+        "base": "segundo",
+        "units": {
+          "segundo": 1,
+          "minuto": 60,
+          "hora": 3600,
+          "dia": 86400
+        }
+      },
+      "velocidad": {
+        "name": "Velocidad",
+        "base": "m_s",
+        "units": {
+          "m_s": 1,
+          "km_h": 0.277778,
+          "mph": 0.44704,
+          "nudo": 0.514444
+        }
+      },
+      "volumen": {
+        "name": "Volumen",
+        "base": "litro",
+        "units": {
+          "litro": 1,
+          "mililitro": 0.001,
+          "metro_cubico": 1000,
+          "galon": 3.78541
+        }
+      },
+      "almacenamiento": {
+        "name": "Almacenamiento Digital",
+        "base": "byte",
+        "units": {
+          "byte": 1,
+          "kb": 1024,
+          "mb": 1048576,
+          "gb": 1073741824,
+          "tb": 1099511627776
+        }
+      }
+    }
+  },
+  "regexTester": {
+    "presets": [
+      {
+        "name": "Correo Electronico",
+        "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+        "flags": "gm",
+        "test": "Contacto soporte@omnitoool.io o admin@test.com para ayuda.\nCorreo invalido: test@@domain.com"
+      },
+      {
+        "name": "Numero Telefonico",
+        "pattern": "^\\+?[0-9]{1,3}?[ -]?\\(?[0-9]{3}\\)?[ -]?[0-9]{3}[ -]?[0-9]{4}$",
+        "flags": "gm",
+        "test": "Llamar al +34 600 123 456 o (555) 123-4567.\nInvalido: 12345"
+      },
+      {
+        "name": "URL Web",
+        "pattern": "https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)",
+        "flags": "gi",
+        "test": "Visita https://www.omnitoool.io o http://example.com/path?query=1 para mas info."
+      }
+    ]
+  }
+}
