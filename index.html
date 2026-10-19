@@ -1,1 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaTools</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">NT</div>
+                <span class="brand-name">NovaTools Pro</span>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tool="json-formatter">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+                    <span>JSON Formatter</span>
+                </button>
+                <button class="nav-item" data-tool="diff-checker">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+                    <span>Text Diff</span>
+                </button>
+                <button class="nav-item" data-tool="contrast-checker">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    <span>Color Contrast</span>
+                </button>
+                <button class="nav-item" data-tool="unit-converter">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6m-6 4h6m2-7H4m16-4V4m0 0l-3 3m3-3l3 3m-3 10v7m0 0l-3-3m3 3l3-3"/></svg>
+                    <span>Unit Converter</span>
+                </button>
+                <button class="nav-item" data-tool="regex-tester">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    <span>Regex Tester</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <span class="status-indicator"></span>
+                <span>Procesamiento local 100%</span>
+            </div>
+        </aside>
 
+        <main class="main-content">
+            <header class="top-header">
+                <h1 id="current-tool-title">JSON Formatter & Validator</h1>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <section id="tool-json-formatter" class="tool-section active">
+                    <div class="tool-toolbar">
+                        <div class="toolbar-group">
+                            <button id="json-format-btn" class="btn primary">Formatear</button>
+                            <button id="json-minify-btn" class="btn secondary">Compactar</button>
+                            <button id="json-copy-btn" class="btn secondary">Copiar</button>
+                            <button id="json-clear-btn" class="btn ghost">Limpiar</button>
+                        </div>
+                        <div class="toolbar-group">
+                            <label class="control-label">Indentación:
+                                <select id="json-indent-select" class="select-sm">
+                                    <option value="2">2 espacios</option>
+                                    <option value="4">4 espacios</option>
+                                    <option value="tab">Tabulador</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="tool-split">
+                        <div class="pane">
+                            <div class="pane-header"><span>Entrada JSON</span><span id="json-input-stats" class="pane-stat">0 caracteres</span></div>
+                            <textarea id="json-input" class="code-textarea" placeholder="Pega tu JSON aquí..."></textarea>
+                        </div>
+                        <div class="pane">
+                            <div class="pane-header"><span>Resultado / Validación</span><span id="json-status" class="status-badge success">Válido</span></div>
+                            <div id="json-output-container" class="output-container">
+                                <pre><code id="json-output"></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="presets-bar">
+                        <span class="presets-title">Ejemplos rápidos:</span>
+                        <div id="json-presets" class="presets-list"></div>
+                    </div>
+                </section>
+
+                <section id="tool-diff-checker" class="tool-section">
+                    <div class="tool-toolbar">
+                        <div class="toolbar-group">
+                            <button id="diff-compare-btn" class="btn primary">Comparar Textos</button>
+                            <button id="diff-copy-btn" class="btn secondary">Copiar Resultado</button>
+                            <button id="diff-clear-btn" class="btn ghost">Limpiar Todo</button>
+                        </div>
+                        <div class="toolbar-group">
+                            <label class="checkbox-label"><input type="checkbox" id="diff-case-sensitive" checked> Sensible a mayúsculas</label>
+                        </div>
+                    </div>
+                    <div class="tool-split">
+                        <div class="pane">
+                            <div class="pane-header"><span>Texto Original</span></div>
+                            <textarea id="diff-original" class="code-textarea" placeholder="Introduce el texto original..."></textarea>
+                        </div>
+                        <div class="pane">
+                            <div class="pane-header"><span>Texto Modificado</span></div>
+                            <textarea id="diff-modified" class="code-textarea" placeholder="Introduce el texto modificado..."></textarea>
+                        </div>
+                    </div>
+                    <div class="diff-result-wrapper">
+                        <div class="pane-header">
+                            <span>Resultado de la Comparación</span>
+                            <div id="diff-stats" class="diff-stats-badges">
+                                <span class="badge added">+0 líneas</span>
+                                <span class="badge removed">-0 líneas</span>
+                                <span class="badge modified">0 cambios</span>
+                            </div>
+                        </div>
+                        <div id="diff-output" class="output-container diff-output"></div>
+                    </div>
+                </section>
+
+                <section id="tool-contrast-checker" class="tool-section">
+                    <div class="contrast-grid">
+                        <div class="contrast-controls">
+                            <div class="control-card">
+                                <h3>Color de Texto (Foreground)</h3>
+                                <div class="color-input-group">
+                                    <input type="color" id="fg-color-picker" value="#ffffff">
+                                    <input type="text" id="fg-color-text" class="input-text" value="#ffffff">
+                                </div>
+                            </div>
+                            <div class="control-card">
+                                <h3>Color de Fondo (Background)</h3>
+                                <div class="color-input-group">
+                                    <input type="color" id="bg-color-picker" value="#0f172a">
+                                    <input type="text" id="bg-color-text" class="input-text" value="#0f172a">
+                                </div>
+                            </div>
+                            <div class="control-card">
+                                <button id="contrast-swap-btn" class="btn secondary full-width">Intercambiar Colores</button>
+                                <button id="contrast-fix-btn" class="btn primary full-width mt-2">Sugerir Ajuste Automático</button>
+                            </div>
+                        </div>
+                        <div class="contrast-preview-panel">
+                            <div id="contrast-preview-card" class="preview-card">
+                                <h2>Tarjeta de Vista Previa</h2>
+                                <p class="preview-text-lg">Texto Grande (18pt+ o Negrita 14pt+)</p>
+                                <p class="preview-text-sm">Este es un párrafo de texto normal utilizado para evaluar la legibilidad general bajo las directrices WCAG 2.1.</p>
+                            </div>
+                            <div class="contrast-results-card">
+                                <div class="ratio-display">
+                                    <span class="ratio-label">Relación de Contraste</span>
+                                    <span id="contrast-ratio-val" class="ratio-number">15.4:1</span>
+                                </div>
+                                <div class="wcag-checks">
+                                    <div class="wcag-item" id="wcag-aa-normal">
+                                        <span class="wcag-title">WCAG AA (Texto Normal)</span>
+                                        <span class="wcag-status">Pasa (Min 4.5:1)</span>
+                                    </div>
+                                    <div class="wcag-item" id="wcag-aaa-normal">
+                                        <span class="wcag-title">WCAG AAA (Texto Normal)</span>
+                                        <span class="wcag-status">Pasa (Min 7:1)</span>
+                                    </div>
+                                    <div class="wcag-item" id="wcag-aa-large">
+                                        <span class="wcag-title">WCAG AA (Texto Grande)</span>
+                                        <span class="wcag-status">Pasa (Min 3:1)</span>
+                                    </div>
+                                    <div class="wcag-item" id="wcag-aaa-large">
+                                        <span class="wcag-title">WCAG AAA (Texto Grande)</span>
+                                        <span class="wcag-status">Pasa (Min 4.5:1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tool-unit-converter" class="tool-section">
+                    <div class="converter-container">
+                        <div class="converter-header">
+                            <div class="category-tabs" id="converter-categories"></div>
+                            <div class="converter-settings">
+                                <label>Decimales:
+                                    <select id="converter-decimals" class="select-sm">
+                                        <option value="2">2</option>
+                                        <option value="4" selected>4</option>
+                                        <option value="6">6</option>
+                                        <option value="8">8</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="converter-fields" class="converter-fields-grid"></div>
+                    </div>
+                </section>
+
+                <section id="tool-regex-tester" class="tool-section">
+                    <div class="regex-toolbar">
+                        <div class="regex-input-group">
+                            <span class="regex-slash">/</span>
+                            <input type="text" id="regex-pattern" class="input-text regex-pattern-input" placeholder="Introduce expresión regular (ej. \d+)">
+                            <span class="regex-slash">/</span>
+                            <input type="text" id="regex-flags" class="input-text regex-flags-input" value="gm" placeholder="flags">
+                        </div>
+                        <div class="regex-flags-checkboxes">
+                            <label><input type="checkbox" id="flag-g" checked> g (Global)</label>
+                            <label><input type="checkbox" id="flag-i"> i (Case-insensitive)</label>
+                            <label><input type="checkbox" id="flag-m" checked> m (Multiline)</label>
+                        </div>
+                    </div>
+                    <div class="tool-split">
+                        <div class="pane">
+                            <div class="pane-header"><span>Texto de Prueba</span></div>
+                            <textarea id="regex-test-text" class="code-textarea" placeholder="Escribe o pega texto para probar la expresión regular..."></textarea>
+                        </div>
+                        <div class="pane">
+                            <div class="pane-header">
+                                <span>Coincidencias Detectadas</span>
+                                <span id="regex-match-count" class="badge">0 coincidencias</span>
+                            </div>
+                            <div id="regex-highlights" class="output-container regex-highlights-view"></div>
+                        </div>
+                    </div>
+                    <div class="presets-bar">
+                        <span class="presets-title">Ejemplos de Regex:</span>
+                        <div id="regex-presets" class="presets-list"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <div id="toast" class="toast">¡Copiado al portapapeles!</div>
+    <script src="app.js"></script>
+</body>
+</html>
