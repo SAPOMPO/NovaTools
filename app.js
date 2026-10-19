@@ -1,5 +1,5 @@
 const fallbackConfig = {
-    "appName": "OmniTool Pro",
+    "appName": "NovaTools",
     "version": "1.0.0",
     "jsonFormatter": {
         "defaultIndent": 2,
